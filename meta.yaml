@@ -1,0 +1,6 @@
+package_name: doc-assistant
+version: 0.1
+license: FIXME
+summary: A fresh new DAP
+homepage: FIXME
+authors: [Tomas Radej <tradej@redhat.com>]
