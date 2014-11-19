@@ -1,0 +1,41 @@
+fullname: Create a document in a specified language
+
+dependencies:
+  - rpm: ['pandoc']
+
+args:
+  name:
+    use: common_args
+
+  github:
+    use: github
+
+  format:
+    flags: [-f, --format]
+    required: False
+    help: Specify the format. Currently supported: md, rst
+
+files:
+  md: &md
+    source: stub.md
+  rst: &rst
+    source: stub.rst
+
+run:
+- setup_project_dir:
+    from: $name
+    on_existing: fail
+    create_topdir: true
+- cl: cd "$contdir/$topdir"
+
+- if $( [ "$format" == "md" ] ):
+  - cl: cp *md "$name".md
+  - log_i: Created $name.md
+- if $( [ "$format" == "rst" ] ):
+  - cl: cp *rst "$name".rst
+  - log_i: Created $name.rst
+
+- if defined $github:
+  - github: create_and_push
+
+

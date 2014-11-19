@@ -1,0 +1,36 @@
+fullname: Convert docs between formats
+description: Use this assistant to convert files or entire directory structures between formats
+
+args:
+  path:
+    use: common_args
+    help: 'Path to file/directory to be converted. Directories are searched recursively'
+
+
+run:
+- if not defined $path:
+  - $path: $(pwd)
+
+- if $(test -d $path):
+  - use: self.run_batch
+- else:
+  - use: self.run_path
+
+
+run_batch:
+  - log_d: Converting directory
+  - cl: mkdir -p ./html
+  - for $file word_in $(find -type f -iname '*.md'):
+    - $dirname: $(dirname "$file")
+    - $basename: $(basename "$file" .md)
+    - cl: mkdir -p ./html/"$dirname"
+    - cl: markdown2 "$file" > ./html/"$dirname"/"$basename".html
+    - log_i: Converted "$file"
+
+
+run_path:
+  - log_d: Converting path
+  - $dirname: $(dirname "$path")
+  - $basename: $(basename "$path" .md)
+  - cl: markdown2 "$path" > "$dirname"/"$basename".html
+  - log_i: Converted "$path"

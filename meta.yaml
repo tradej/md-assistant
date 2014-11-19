@@ -1,6 +1,10 @@
-package_name: doc-assistant
-version: 0.1
-license: FIXME
-summary: A fresh new DAP
-homepage: FIXME
+package_name: docs
+version: 0.1dev
+license: MIT
+summary: Documentation Assistant for various documentation projects
+homepage: https://github.com/tradej/doc-assistant
 authors: [Tomas Radej <tradej@redhat.com>]
+dependencies: [common_args, github]
+description: |
+    This Assistant contains facilities to create documents in various languages
+    and convert them to HTML. More features to come.
