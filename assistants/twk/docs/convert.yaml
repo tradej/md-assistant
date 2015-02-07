@@ -1,11 +1,25 @@
 fullname: Convert docs between formats
-description: Use this assistant to convert files or entire directory structures between formats
+description: Use this assistant to convert files or entire directory structures between formats. The input format is automatically inferred from the file suffix.
 
 args:
   path:
     use: common_args
     help: 'Path to file/directory to be converted. Directories are searched recursively'
 
+  input:
+    flags: [-i, --input]
+    required: False
+    help: Specify the input format (automatically detected by default)
+
+  output:
+    flags: [-o, --output]
+    required: True
+    help: Specify the output format (required)
+
+  dir_name:
+    flags: [-d, --output_dir]
+    required: False
+    help: Specify the output directory's name (by default, it's same as the output format)
 
 run:
 - if not defined $path:
